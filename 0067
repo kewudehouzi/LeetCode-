@@ -1,0 +1,59 @@
+//转化成数字，最后会溢出
+class Solution {
+public:
+    string ten_two(long long n){
+        string ans;
+        if(n==0) return "0";
+        while(n!=0){
+            if(n%2==0) ans='0'+ans;
+            else ans='1'+ans;
+            n=n/2;
+        }
+        return ans;
+    }
+    long long two_ten(string n){
+        long long ans=0;
+        for(int i=0;i<n.size();i++){
+            ans=ans*2+(n[i]-'0');
+        }
+        return ans;
+    }
+    string addBinary(string a, string b) {
+        //int a1,b1;
+        //a1=stoi(a),b1=stoi(b);
+        long long n=two_ten(a)+two_ten(b);
+        return ten_two(n);
+    }
+};
+
+
+//通过版，利用字符串加法
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string ans;
+        int a1=a.size(),b1=b.size(),carry=0;
+        while(a1<b1){//把短的串前面用0补齐
+            a='0'+a;a1++;
+        }
+        while(b1<a1){
+            b='0'+b;b1++;
+        }
+        for(int i=a.size()-1;i>=0;i--){
+            int ai=a[i]-'0',bi=b[i]-'0';
+            int now=ai+bi+carry;
+            if(now<=1){
+                char c=now+'0';
+                ans=c+ans;
+                carry=0;
+            }
+            else{
+                carry=1;
+                char c=(now%2+'0');
+                ans=c+ans;
+            }
+        }
+        if(carry==1) ans='1'+ans;
+        return ans;
+    }
+};
