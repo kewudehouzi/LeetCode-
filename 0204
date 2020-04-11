@@ -1,0 +1,21 @@
+class Solution {
+public:
+    /*bool isprime(int x){
+        if(x==2) return true;
+        for(int i=2;i<sqrt(x)+1;i++){
+            if(x%i==0) return false;
+        }
+        return true;
+    }*/
+    int countPrimes(int n) {
+        int num=0;
+        vector<bool> is(n+2);
+        for(int i=2;i<n;i++){
+            if(is[i]==false){
+                num++;
+                for(int j=i;j<=n;j+=i) is[j]=true;
+            }
+        }
+        return num;
+    }
+};
