@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        //n=n+3;
+        if(n==1) return "1";
+        string temp="1";
+        for(int i=1;i<n;i++){
+            temp=read(temp);
+        }
+        return temp;
+    }
+    string read(string t){
+        int num=1;
+        char c=t[0];
+        string ans;
+        for(int i=1;i<t.size();i++){
+            if(t[i]==c)
+                num++;
+            else{
+                ans+=('0'+num);ans+=c;
+                c=t[i];
+                num=1;
+            }
+        }
+        ans+=('0'+num);ans+=c;
+        return ans;
+    }
+};
