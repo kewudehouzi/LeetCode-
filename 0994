@@ -1,0 +1,46 @@
+class Solution {
+public:
+    struct node{
+        int i,j,level;
+    };
+    /*bool judge(int i,int j){
+        if(vis[i][j]==true) return false;
+        if(i<0||i>=m||j<0||j>=n) return false;
+        return true;
+    }*/
+    int orangesRotting(vector<vector<int>>& grid) {
+        queue<node> q;
+        int fresh=0;
+        int m,n;
+        m=grid.size();n=grid[0].size();
+        vector<vector<bool>> vis(m,vector<bool>(n,false));
+        int x[4]={1,-1,0,0};int y[4]={0,0,1,-1};
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1) fresh++;
+                if(grid[i][j]==2){
+                    node bad;
+                    bad.i=i;bad.j=j;bad.level=0;
+                    q.push(bad);
+                }
+            }
+        }  
+        if(fresh==0) return 0;
+        while(!q.empty()){
+            node now=q.front();
+            q.pop();
+            for(int i=0;i<4;i++){
+                int ni=now.i+x[i],nj=now.j+y[i];
+                if(ni<0||ni>=m||nj<0||nj>=n) continue;
+                if(vis[ni][nj]==false&&grid[ni][nj]==1){
+                    vis[ni][nj]=true;
+                    fresh--;
+                    node now2;now2.i=ni;now2.j=nj;now2.level=now.level+1;
+                    q.push(now2);
+                    if(fresh==0) return now.level+1;
+                }
+            }
+        }
+        return -1;
+    }
+};
