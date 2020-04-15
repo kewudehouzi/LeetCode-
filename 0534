@@ -1,0 +1,19 @@
+
+ //此题坑点在于最长路径不一定经过根节点，中间一个节点折返一下也有可能成为最长路径
+ //通过设置一个全局变量，可以解决上述问题
+class Solution {
+public:
+    int maxed=0;
+    int depth(TreeNode* root){
+        if(root==NULL) return 0;
+        int l=depth(root->left);
+        int r=depth(root->right);
+        maxed=max(maxed,l+r);
+        return 1+max(l,r);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(root==NULL) return 0;
+        depth(root);
+        return maxed;
+    }
+};
