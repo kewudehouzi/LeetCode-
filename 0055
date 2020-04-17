@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n=1;//表示当前单元格至少要跳几步，才能到达末尾
+        //从后往前判断
+        if(nums.size()==0||nums.size()==1) return true;
+        for(int i=nums.size()-2;i>=0;i--){
+            if(nums[i]>=n) n=1;
+            else n++;
+        }
+        if(n==1) return true;
+        else return false;
+    }
+};
