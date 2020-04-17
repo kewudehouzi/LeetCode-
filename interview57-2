@@ -1,0 +1,22 @@
+class Solution {
+public:
+    //滑动窗口
+    vector<vector<int>> findContinuousSequence(int target) {
+        int k=0,s=0;
+        vector<vector<int>> ans;
+        for(int l=1,r=1;r<=target/2+1;r++){
+            s+=r;
+            while(s>target){
+                s=s-l;
+                l++;
+            }
+            if(s==target){
+                vector<int> t;
+                for(int i=l;i<=r;i++)
+                   t.push_back(i);
+                ans.push_back(t);
+            }
+        }
+        return ans;
+    }
+};
