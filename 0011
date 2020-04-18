@@ -1,0 +1,15 @@
+class Solution {
+public:
+    //双指针的题一定是从两头开始往中间遍历
+    int maxArea(vector<int>& height) {
+        int i=0,j=height.size()-1;
+        int ans=0;
+        while(i<j){
+            int m=min(height[i],height[j]);
+            ans=max(ans,m*(j-i));
+            if(height[i]==m) i++;
+            else j--;
+        }
+        return ans;
+    }
+};
