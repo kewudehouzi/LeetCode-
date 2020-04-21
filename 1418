@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<string>> displayTable(vector<vector<string>>& orders) 
+    {
+        set<string> foodList;//存菜的种类
+        map<int, map<string, int>> tableList;//第一个int存桌号，后一个map对应该桌每个菜的个数
+
+        for (auto& o : orders)
+        {
+            foodList.insert(o[2]);
+            tableList[stoi(o[1])][o[2]]++;//会自动创建对应的map映射
+        }
+
+        vector<vector<string>> ans;
+        vector<string> title = { "Table" };
+        for (auto& s : foodList)//遍历set的简便写法
+        {
+            title.push_back(s);
+        }
+        ans.push_back(title);
+        for (auto& p : tableList)
+        {
+            vector<string> t = { to_string(p.first) };
+            for (auto& s : foodList)
+            {
+                t.push_back(to_string(p.second[s]));
+            }
+            ans.push_back(t);
+        }
+
+        return ans;
+    }
+};
