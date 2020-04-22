@@ -1,0 +1,18 @@
+class Solution {
+public:
+//排列组合，区分首位为0和不为0两种情况
+    int countNumbersWithUniqueDigits(int n) {
+        int dp[11];//dp[i]存n为i时组合的个数
+        dp[0]=1;dp[1]=10;
+        if(n>10) n=10;
+        for(int i=2;i<=n;i++){
+            int sum=9,t=9;
+            for(int j=1;j<i;j++){
+                sum=sum*t;
+                t--;
+            }
+            dp[i]=dp[i-1]+sum;
+        }
+        return dp[n];
+    }
+};
