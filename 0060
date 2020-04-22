@@ -1,0 +1,41 @@
+class Solution {
+public:
+//回溯法+剪枝
+    int fac[11];//存n的阶乘
+    int cnt=0,flag=0;//记录排列的数量
+    int vis[11]={0};
+    string t;
+    void dfs(int index,int n,int k,string s){
+        if(flag==1) return ;
+        if(index==n) {
+            cnt++;
+            if(cnt==k) {t=s;flag=1;}
+            return;
+        }
+        int temp = fac[n-index-1];
+        for(int i=1;i<=n;i++){
+            if(vis[i]==0){
+                if(temp < k ){
+                    k = k - temp;
+                    continue;
+                }
+                vis[i]=1;
+                char c='0'+i;
+                //s=s+c;
+                dfs(index+1,n,k,s+c);
+                vis[i]=0;
+                //s.substr(0,s.size()-1);
+            }
+        }
+    }
+    string getPermutation(int n, int k) {
+        string s;
+        fac[0]=1;fac[1]=1;
+        for(int i=2;i<=n;i++){
+            fac[i]=fac[i-1]*i;
+        }
+        //for(int i=1;i<=n;i++)
+        dfs(0,n,k,s);
+        return t;
+    }
+};
