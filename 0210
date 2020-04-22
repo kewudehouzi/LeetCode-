@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> ans;
+        //if(prerequisites.size()==0) return ans;
+        vector<int> indegree(numCourses,0);//记录每个顶点的入度
+        vector<vector<int>> adj(numCourses);//记录与i点连接的其它顶点
+        for(int i=0;i<prerequisites.size();i++){
+            int t1=prerequisites[i][0],t2=prerequisites[i][1];
+            indegree[t1]++;//入度加1
+            adj[t2].push_back(t1);
+        }
+        queue<int> q;
+        int n=numCourses;
+        for(int i=0;i<numCourses;i++){
+            if(indegree[i]==0){
+                q.push(i);
+                ans.push_back(i);
+                n--;
+            }
+        }
+        while(!q.empty()){
+            int now=q.front();
+            q.pop();
+            for(int i=0;i<adj[now].size();i++){
+                int t=adj[now][i];
+                indegree[t]--;
+                if(indegree[t]==0){
+                    q.push(t);
+                    n--;
+                    ans.push_back(t);
+                    if(n==0) return ans;
+                }
+            }
+        }
+        if(n==0) return ans;
+        ans.clear();
+        return ans;
+    }
+};
