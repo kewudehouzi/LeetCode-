@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void dfs(vector<int> nums,int index,vector<int> t,vector<bool> vis){
+        if(index==nums.size()){
+            ans.push_back(t);
+            return ;
+        }
+        for(int i=0;i<nums.size();i++){
+            if(vis[i]==false){
+                t.push_back(nums[i]);
+                vis[i]=true;
+                dfs(nums,index+1,t,vis);
+                vis[i]=false;
+                t.pop_back();
+            }
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<int> t;
+        vector<bool> vis(nums.size(),false);
+        dfs(nums,0,t,vis);
+        return ans;
+    }
+};
