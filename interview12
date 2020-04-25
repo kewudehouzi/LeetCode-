@@ -1,0 +1,37 @@
+class Solution {
+public:
+bool dfs(int i,int j,vector<vector<char>> board,string s,int index,vector<vector<int>>& vis){
+        if(index==s.size()) return true;
+        int x[4]={1,-1,0,0},y[4]={0,0,1,-1};
+        for(int k=0;k<4;k++){
+            int nx=i+x[k],ny=j+y[k];
+            if(nx<0||nx>=board.size()||ny<0||ny>=board[0].size()) continue;
+            if(vis[nx][ny]==1) continue;//访问过了
+            if(board[nx][ny]!=s[index]) continue;
+            vis[nx][ny]=1;
+            bool flag=dfs(nx,ny,board,s,index+1,vis);
+            if(flag==true) return true;
+            vis[nx][ny]=0;
+        }
+        return false;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        if(word=="") return true;
+        int m=board.size();
+        if(m==0) return false;
+        int n=board[0].size();
+        if(n==0) return false;
+        vector<vector<int>> vis(m,vector<int>(n,0));
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]==word[0]){
+                    vis[i][j]=1;
+                    bool flag=dfs(i,j,board,word,1,vis);
+                    if(flag==true) return true;
+                    vis[i][j]=0;
+                }
+            }
+        }
+        return false;
+    }
+};
