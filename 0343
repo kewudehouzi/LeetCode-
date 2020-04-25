@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int dp[60]={0};
+    int dfs(int n){
+        if(n==1) return 1;
+        if(dp[n]!=0) return dp[n];
+        int ans=1;
+        for(int i=n-1;i>=1;i--){
+            ans=max(ans,dfs(n-i)*i);
+            ans=max(ans,(n-i)*i);
+        }
+        dp[n]=ans;
+        return ans;
+    }
+    int integerBreak(int n) {
+        return dfs(n);
+    }
+};
