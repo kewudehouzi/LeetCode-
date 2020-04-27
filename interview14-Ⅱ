@@ -1,0 +1,15 @@
+class Solution {
+public:
+    //由于取余之后max函数的比较就失效了，不能再用动态规划的方式求解了
+    int cuttingRope(int n) {
+        if(n==2) return 1;
+        if(n==3) return 2;
+        long t=1;
+        while(n>4){
+           t=t*3;
+           t=t%1000000007;
+           n=n-3;
+        }
+        return (t*n)%1000000007;
+    }
+};
