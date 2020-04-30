@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<string> ans;
+    void dfs(string s,string t,vector<int> vis, int index){
+        if(index==s.size()){
+            ans.push_back(t);
+            return ;
+        }
+        for(int i=0;i<s.size();i++){
+            if(vis[i]!=1){
+                if(i>0&&s[i-1]==s[i]&&vis[i-1]==0) continue;
+                vis[i]=1;
+                t=t+s[i];
+                dfs(s,t,vis,index+1);
+                t.erase(t.end()-1);
+                vis[i]=0;
+            }
+        }
+    }
+    vector<string> permutation(string s) {
+        int n=s.size();
+        vector<int> vis(n+2,0);
+        sort(s.begin(),s.end());
+        string t;
+        dfs(s,t,vis,0);
+        return ans;
+    }
+};
