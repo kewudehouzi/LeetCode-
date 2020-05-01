@@ -1,0 +1,20 @@
+class Solution {
+public:
+    //类似于素数筛的思想
+    int nthUglyNumber(int n) {
+        if(n==1) return 1;
+        vector<int> num(n,0);
+        num[0]=1;
+        int id2=0,id3=0,id5=0;
+        for(int i=1;i<n;i++){
+            num[i]=min(num[id2]*2,min(num[id3]*3,num[id5]*5));
+            if(num[i]==num[id2]*2) //不用else if，是因为2*3=3*2，可能两个指针都需要移动
+                id2++;
+            if(num[i]==num[id3]*3) 
+                id3++;
+            if(num[i]==num[id5]*5) 
+                id5++;
+        }
+        return num[n-1];
+    }
+};
