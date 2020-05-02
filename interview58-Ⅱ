@@ -1,0 +1,12 @@
+class Solution {
+public:
+    string reverseLeftWords(string s, int n) {
+        reverse(s.begin(),s.end());
+        int l=s.size();
+        string t1=s.substr(0,l-n);
+        string t2=s.substr(l-n,n);
+        reverse(t1.begin(),t1.end());
+        reverse(t2.begin(),t2.end());
+        return t1+t2;
+    }
+};
