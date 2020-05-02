@@ -1,0 +1,28 @@
+class Solution {
+public:
+    //位运算，详见题解
+    int singleNumber(vector<int>& nums) {
+      /*int counts[32]={0};
+        for(int i=0;i<nums.size();i++) {
+            int b=31;
+            while(nums[i]!=0) {
+                if(nums[i]&1) counts[b]++;
+                b--;
+                nums[i]=nums[i] >> 1;
+            }
+        }
+        int res = 0, m = 3;
+        for(int i = 0; i < 32; i++) {
+            res=res*2+counts[i]%3;
+        }
+        return res;*/
+        unordered_map<int,int> m;
+        for(int i=0;i<nums.size();i++){
+            m[nums[i]]++;
+        }
+        for(unordered_map<int,int>::iterator it=m.begin();it!=m.end();it++){
+            if(it->second==1) return it->first;
+        }
+        return nums[0];
+    }
+};
