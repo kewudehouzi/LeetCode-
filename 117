@@ -1,0 +1,50 @@
+//使用队列的方式，空间复杂度为O（n）
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        queue<Node*> q;
+        if(root==NULL) return root;
+        q.push(root);
+        while(!q.empty()){
+            int l=q.size();
+            while(l>0){
+               l--;
+               Node* now=q.front();
+               q.pop();
+               if(l>0) now->next=q.front();
+               if(now->left!=NULL) q.push(now->left);
+               if(now->right!=NULL) q.push(now->right); 
+            }
+        }
+        return root;
+    }
+};
+
+//不用队列的做法
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(root==NULL) return root;
+        Node nextlayer=Node(0);//nectlayer.next指向下一层的第一个节点
+        Node *now=root;//当前处理节点的指针
+        Node* EndNextLayer=&nextlayer;//指向下一层的最后一个节点
+        while(now!=NULL||nextlayer.next){
+            if(now==NULL){
+                now=nextlayer.next;
+                nextlayer.next=NULL;
+                EndNextLayer=&nextlayer;
+            }
+            if(now->left!=NULL){
+                EndNextLayer->next=now->left;
+                EndNextLayer=EndNextLayer->next;
+            }
+            if(now->right!=NULL){
+                EndNextLayer->next=now->right;
+                EndNextLayer=EndNextLayer->next;
+            }
+            now=now->next;
+        }
+        return root;
+        
+    }
